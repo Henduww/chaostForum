@@ -2,15 +2,47 @@
 
 	<style>
 
-	#content {
-		text-align: center;
-	}
+		#content {
+			text-align: center;
+		}
 
-	textarea {
-		width: 365px;
-		height: 130px;
-		resize: none;
-	}
+		textarea {
+			width: 365px;
+			height: 130px;
+			resize: none;
+		}
+
+		#submit {
+			color: white;
+			background-color: #cc0000;
+			padding: 5px 15px;
+			border: 1px solid rgb(227, 227, 227);
+			border-radius: 5px;
+		}
+
+		#selectCat {
+			width: 200px;
+			height: 25px;
+			border-radius: 5px;
+		}
+
+		#createTopHeader {
+			background-color: #cc0000;
+			height: 30px;
+			text-align: center;
+			color: white;
+			margin-bottom: 25px;
+		}
+
+		#createTopHeader h2 {
+			padding: 2px;
+		}
+
+		#topSub {
+			border-radius: 3px;
+			border: 1px solid rgb(156, 156, 156);
+			height: 25px;
+		}
 
 	</style>
 
@@ -21,7 +53,7 @@
 	include 'connect.php';
 	include 'header.php';
 
-	echo '<h3>Create a topic</h3>';
+	echo '<div id="createTopHeader"><h2>Create a topic</h2></div>';
 
 
 	if ($_SERVER['REQUEST_METHOD'] != 'POST') {
@@ -37,16 +69,16 @@
 			} else {
 				echo '
 					<form method="post" action="">
-						Subject: <input type="text" name="topic_sub" /><br><br>
+						Subject: <input id="topSub" type="text" name="topic_sub" /><br><br>
 						Category:
 
-						<select name="topic_cat">';
+						<select id="selectCat" name="topic_cat">';
 							while ($row = mysqli_fetch_assoc($result)) {
 								echo '<option value="' . $row['cat_id'] . '">' . $row['cat_name'] . '</option>';
 							}
 						echo '</select><br><br>
 						Message:<br> <textarea name="post_cont" placeholder="Make the first post on this topic.."></textarea><br><br>
-						<input type="submit" value="Create Topic" />
+						<input type="submit" id="submit" value="Create Topic" />
 					</form>
 				';
 			}

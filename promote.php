@@ -4,10 +4,14 @@
 
 		#promoteHeader {
 			background-color: #cc0000;
-			width: 95%;
-			height: 80px;
+			height: 30px;
 			text-align: center;
 			color: white;
+			margin-bottom: 25px;
+		}
+
+		#promoteHeader h2 {
+			padding: 2px;
 		}
 
 		#noPermission {
@@ -20,7 +24,7 @@
 		}
 
 		#mainForm {
-			margin: auto;
+			text-align: center;
 		}
 
 		.failed {
@@ -32,6 +36,20 @@
 			margin: auto;
 		}
 
+		#users {
+			width: 200px;
+			height: 25px;
+			border-radius: 5px;
+		}
+
+		#submit {
+			color: white;
+			background-color: #cc0000;
+			padding: 5px 15px;
+			border: 1px solid rgb(227, 227, 227);
+			border-radius: 5px;
+		}
+
 	</style>
 
 </head>
@@ -41,7 +59,7 @@
 	include 'connect.php';
 	include 'header.php';
 
-	echo '<div id="promoteHeader><h2>Promote member</h2></div>"';
+	echo '<div id="promoteHeader"><h2>Promote member</h2></div>';
 
 	if ($_SESSION['userlvl'] != '1') {
 		echo '<div id="noPermission"><h2>You do not have permission to promote a member!</h2><br><h4 id="underTxt">If this is wrong, please contact your web developer.</h4></div>';
@@ -49,7 +67,7 @@
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 
 			$sql = 'SELECT user_name, user_id FROM users WHERE user_level=0';
-			$reuslt = mysqli_query($conn, $sql);
+			$result = mysqli_query($conn, $sql);
 
 			if (!$result) {
 				echo '<h3 class="failed">Could not display users!</h3>';
@@ -57,13 +75,13 @@
 				echo '
 				<div id="mainForm">
 					<form method="post" action="">
-						<select name="user">';
+						<select id="users" name="user">';
 						while ($row = mysqli_fetch_assoc($result)) {
-							echo '<option value="' . $row['user_id'] . '">' . $row['user_name'] . '</option>';
+							echo '<option class="usr" value="' . $row['user_id'] . '">' . $row['user_name'] . '</option>';
 						}
 						echo '
-						</select><br>
-						<input type="submit" value="Promote">
+						</select><br><br>
+						<input id="submit" type="submit" value="Promote">
 					</form>
 				</div>
 				';

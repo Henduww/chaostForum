@@ -4,22 +4,19 @@
 
 		#rulesHeader {
 			background-color: #cc0000;
-			width: 95%;
-			height: 80px;
+			height: 30px;
 			text-align: center;
 			color: white;
+		}
+
+		#rulesHeader h2 {
+			padding: 2px;
 		}
 
 		.fail {
 			margin: auto;
 			color: red;
 		}
-
-		#rules {
-			text-align: center;
-			margin: auto;
-		}
-
 
 	</style>
 
@@ -33,7 +30,7 @@
 	echo '<div id="rulesHeader"><h2>Rules</h2></div>';
 
 	$sql = 'SELECT * FROM rules';
-	$result = mysqli_connect($conn, $sql);
+	$result = mysqli_query($conn, $sql);
 
 	if (!$result) {
 		echo '<p class="fail">Failed to retrieve rules.</p>';
@@ -43,7 +40,7 @@
 			<ul>
 		';
 		while ($row = mysqli_fetch_assoc($result)) {
-			echo '<li class="rule"><h5>' . $row['rule_content'] . '</h5></li>';
+			echo '<li class="rule"><p>' . $row['rule_content'] . '</p></li>';
 		}
 		echo '
 			</ul>
